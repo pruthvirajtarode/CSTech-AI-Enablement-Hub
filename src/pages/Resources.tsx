@@ -173,8 +173,8 @@ export function Resources() {
                              
                              <div className="z-10 flex flex-col items-center w-full max-w-lg animate-fade-in">
                                 <div className="flex justify-between w-full mb-2 text-xs text-brand-yellow font-mono font-bold tracking-wider">
-                                   <span>AI_TO_ERP_PIPELINE</span>
-                                   <span className="animate-pulse text-green-400">● LIVE SYNC</span>
+                                   <span>{viewingResource.title.includes('RFQ') ? 'AI_PROCUREMENT_ANALYZER' : 'AI_TO_ERP_PIPELINE'}</span>
+                                   <span className="animate-pulse text-green-400">{viewingResource.title.includes('RFQ') ? '● ANALYSIS ACTIVE' : '● LIVE SYNC'}</span>
                                 </div>
                                 
                                 <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden mb-8 shadow-inner">
@@ -184,17 +184,33 @@ export function Resources() {
                                 <div className="bg-black/80 border border-slate-700 w-full rounded-md p-4 font-mono text-xs text-green-400 h-48 flex flex-col justify-end shadow-2xl relative">
                                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-black/90 to-transparent z-10 pointer-events-none"></div>
                                    <div className="flex flex-col gap-2 opacity-90 z-0">
-                                      <p>{">"} INITIALIZING NEURAL EXTRACTION ENGINE...</p>
-                                      <p>{">"} CONNECTING TO SECURE ERP ENDPOINT [TCP 443]...</p>
-                                      <p className="text-blue-400">{">"} CONNECTION ESTABLISHED. SSL VERIFIED.</p>
-                                      <p>{">"} PARSING INBOUND PDF INVOICES (BATCH 402)...</p>
-                                      <p className="text-yellow-400 animate-pulse">{">"} EXTRACTING LINE ITEMS AND MAPPING TO INVENTORY SKUS...</p>
-                                      <p className="text-green-500 font-bold mt-2">{">"} SUCCESS: 145 RECORDS PUSHED TO ERP SYSTEM IN 2.4 SECONDS.</p>
+                                      {viewingResource.title.includes('RFQ') ? (
+                                        <>
+                                          <p>{">"} INITIALIZING PROCUREMENT NLP MODEL...</p>
+                                          <p>{">"} LOADING SUPPLIER RFQ DOCUMENTS (3 FILES)...</p>
+                                          <p className="text-blue-400">{">"} OCR EXTRACTION COMPLETE.</p>
+                                          <p>{">"} COMPARING PRICING MATRICES & LEAD TIMES...</p>
+                                          <p className="text-yellow-400 animate-pulse">{">"} DETECTING HIDDEN FREIGHT COSTS...</p>
+                                          <p className="text-green-500 font-bold mt-2">{">"} SUCCESS: OPTIMAL SUPPLIER IDENTIFIED.</p>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <p>{">"} INITIALIZING NEURAL EXTRACTION ENGINE...</p>
+                                          <p>{">"} CONNECTING TO SECURE ERP ENDPOINT [TCP 443]...</p>
+                                          <p className="text-blue-400">{">"} CONNECTION ESTABLISHED. SSL VERIFIED.</p>
+                                          <p>{">"} PARSING INBOUND PDF INVOICES (BATCH 402)...</p>
+                                          <p className="text-yellow-400 animate-pulse">{">"} EXTRACTING LINE ITEMS & MAPPING SKUS...</p>
+                                          <p className="text-green-500 font-bold mt-2">{">"} SUCCESS: 145 RECORDS PUSHED IN 2.4s.</p>
+                                        </>
+                                      )}
                                    </div>
                                 </div>
                                 
                                 <div className="mt-8 text-center text-slate-400 text-xs max-w-sm leading-relaxed">
-                                  <p>This is a simulated technical view of the AI-to-ERP integration pilot running in real-time. Data is processed securely on-premise.</p>
+                                  <p>{viewingResource.title.includes('RFQ') 
+                                    ? 'This is a simulated technical view of the Procurement AI lab processing vendor quotes.'
+                                    : 'This is a simulated technical view of the AI-to-ERP integration pilot running in real-time. Data is processed securely on-premise.'}
+                                  </p>
                                 </div>
                              </div>
                           </div>
