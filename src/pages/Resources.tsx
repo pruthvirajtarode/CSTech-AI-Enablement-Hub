@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -17,7 +17,16 @@ const resources = [
 export function Resources() {
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [viewingResource, setViewingResource] = useState<typeof resources[0] | null>(null);
+  const [isResourceLoaded, setIsResourceLoaded] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (viewingResource) {
+      setIsResourceLoaded(false);
+      const timer = setTimeout(() => setIsResourceLoaded(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [viewingResource]);
 
   const filteredResources = selectedCategory === 'All Categories' 
     ? resources 
@@ -96,11 +105,33 @@ export function Resources() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="flex-1 bg-gray-100 flex flex-col items-center justify-center relative">
+            <div className="flex-1 bg-gray-100 flex flex-col items-center justify-center relative p-8 text-center">
               <div className="absolute inset-0 bg-grid-brand-gray/5 bg-[size:20px_20px]"></div>
-              <Loader2 className="w-8 h-8 animate-spin text-brand-yellow mb-4" />
-              <p className="text-brand-darkGray font-medium">Loading {viewingResource.type.toLowerCase()} viewer...</p>
-              <p className="text-sm text-gray-400 mt-2">Simulated resource view</p>
+              
+              {!isResourceLoaded ? (
+                <>
+                  <Loader2 className="w-8 h-8 animate-spin text-brand-yellow mb-4" />
+                  <p className="text-brand-darkGray font-medium">Loading {viewingResource.type.toLowerCase()} viewer...</p>
+                </>
+              ) : (
+                <div className="flex flex-col items-center animate-fade-in z-10">
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm border border-brand-gray">
+                     {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? 
+                       <Video className="w-8 h-8 text-blue-500" /> : 
+                       <Book className="w-8 h-8 text-brand-yellow" />
+                     }
+                  </div>
+                  <h3 className="text-2xl font-bold text-brand-black mb-2">{viewingResource.title}</h3>
+                  <p className="text-brand-darkGray mb-6 max-w-md">{viewingResource.desc}</p>
+                  
+                  <div className="p-5 bg-white rounded-lg border border-brand-gray shadow-sm w-full max-w-md">
+                    <p className="text-sm text-brand-charcoal mb-4">
+                      This is a simulated demo environment. In the full platform, the actual {viewingResource.type.toLowerCase()} content would be securely embedded here for the user to view.
+                    </p>
+                    <Button onClick={() => setViewingResource(null)} className="w-full">Acknowledge</Button>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="p-4 border-t border-brand-gray bg-gray-50 flex justify-between items-center">
               <span className="text-xs text-brand-darkGray">CSTech Confidential</span>
