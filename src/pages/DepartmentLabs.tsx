@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -42,6 +42,7 @@ export function DepartmentLabs() {
   const [activeTool, setActiveTool] = useState<string | null>('RFQ Analysis');
   const [demoLoaded, setDemoLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const tools = departmentTools[activeDept.id as keyof typeof departmentTools];
 
@@ -184,9 +185,20 @@ export function DepartmentLabs() {
                         {isLoading ? 'Processing...' : 'Use Demo Dataset'}
                       </Button>
                       <div className="text-sm text-brand-darkGray my-2">- OR -</div>
-                      <Button variant="outline" className="w-full justify-center" onClick={() => alert("Upload functionality is a placeholder.")}>
+                      <Button variant="outline" className="w-full justify-center" onClick={() => fileInputRef.current?.click()} disabled={isLoading}>
                         Upload CSV / PDF
                       </Button>
+                      <input 
+                        type="file" 
+                        ref={fileInputRef} 
+                        className="hidden" 
+                        accept=".csv,.pdf,.xlsx"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files.length > 0) {
+                            handleLoadDemo();
+                          }
+                        }}
+                      />
                     </div>
                   </div>
                 )}
