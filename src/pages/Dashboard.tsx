@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { Play, TrendingUp, Clock, CheckCircle, Brain, ArrowRight } from 'lucide-react';
+import { Play, TrendingUp, CheckCircle, Brain, ArrowRight } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const journeyStages = [
@@ -107,7 +107,7 @@ export function Dashboard() {
         <CardContent>
           <div className="flex flex-wrap items-center justify-between relative mt-4">
             <div className="absolute top-1/2 left-0 w-full h-1 bg-brand-gray -translate-y-1/2 z-0 hidden md:block"></div>
-            {journeyStages.map((stage, index) => (
+            {journeyStages.map((stage) => (
               <div key={stage.id} className="relative z-10 flex flex-col items-center gap-2 mb-4 md:mb-0">
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 border-white font-bold transition-all ${
                   stage.status === 'completed' ? 'bg-brand-black text-brand-white' : 

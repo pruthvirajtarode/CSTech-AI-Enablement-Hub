@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { BookOpen, CheckCircle2, PlayCircle, Lock } from 'lucide-react';
+import { CheckCircle2, PlayCircle, Lock } from 'lucide-react';
 
 const modules = [
   { id: 1, title: 'What is AI?', desc: 'AI vs traditional software & automation.', status: 'completed' },

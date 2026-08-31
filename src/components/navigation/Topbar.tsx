@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Search, Bell, User } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 

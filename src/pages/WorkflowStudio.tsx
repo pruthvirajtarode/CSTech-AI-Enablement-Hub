@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { 
-  Play, Plus, Save, Settings, Mail, FileText, Bot, Share2, 
+  Play, Plus, Save, Settings, Mail, FileText, Bot, 
   UserCheck, Server, AlertCircle, ArrowDown
 } from 'lucide-react';
 

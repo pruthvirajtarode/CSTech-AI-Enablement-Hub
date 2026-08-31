@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
+
 import { Badge } from '../components/ui/Badge';
 import { Server, Database, Brain, ArrowDown, Lock, CheckCircle, Smartphone } from 'lucide-react';
 

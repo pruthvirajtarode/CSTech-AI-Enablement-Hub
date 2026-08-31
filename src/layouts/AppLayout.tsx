@@ -1,7 +1,6 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Sidebar } from '../navigation/Sidebar';
-import { Topbar } from '../navigation/Topbar';
+import { Sidebar } from '../components/navigation/Sidebar';
+import { Topbar } from '../components/navigation/Topbar';
 
 export function AppLayout() {
   return (
