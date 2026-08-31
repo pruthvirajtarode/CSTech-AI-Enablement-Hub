@@ -51,8 +51,11 @@ export function Sidebar({ isOpen = false, setIsOpen }: SidebarProps) {
       )}>
         <div className="p-6 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold tracking-tight">CSTech AI</h1>
-            <p className="text-xs text-brand-gray mt-1">Enablement Hub</p>
+            <div className="flex items-center gap-2 mb-1">
+              <img src="/logo.avif" alt="CSTech Logo" className="w-8 h-8 object-contain rounded bg-white p-0.5" />
+              <h1 className="text-xl font-bold tracking-tight">CSTech AI</h1>
+            </div>
+            <p className="text-xs text-brand-gray">Enablement Hub</p>
           </div>
           <button className="lg:hidden text-brand-gray hover:text-white" onClick={() => setIsOpen?.(false)}>
             <X className="w-6 h-6" />

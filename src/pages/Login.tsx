@@ -24,6 +24,9 @@ export function Login() {
       </div>
       
       <div className="z-10 text-center mb-8">
+        <div className="flex justify-center mb-6">
+           <img src="/logo.avif" alt="CSTech Logo" className="w-24 h-24 object-contain rounded-2xl bg-white p-2 shadow-lg" />
+        </div>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">CSTech AI <span className="text-brand-yellow">Enablement Hub</span></h1>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">Learn AI. Apply AI. Improve the way you work.</p>
       </div>
