@@ -34,9 +34,9 @@ export function Dashboard() {
           <h1 className="text-3xl font-bold tracking-tight">Good morning, Sarah</h1>
           <p className="text-brand-darkGray mt-1 text-lg">Let's build your AI capability step by step.</p>
         </div>
-        <div className="flex gap-3">
-          <Button variant="outline">View Certification</Button>
-          <Button>Resume Module</Button>
+        <div className="flex flex-col sm:flex-row gap-4 mt-6">
+          <Button variant="outline" onClick={() => navigate('/assessments')}>View Certification</Button>
+          <Button onClick={() => navigate('/foundations')}>Resume Module</Button>
         </div>
       </div>
 

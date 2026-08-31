@@ -1,8 +1,10 @@
-
+import { useState } from 'react';
 import { Search, Bell, User } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 
 export function Topbar() {
+  const [showNotifications, setShowNotifications] = useState(false);
+
   return (
     <header className="h-16 bg-white border-b border-brand-gray flex items-center justify-between px-8 sticky top-0 z-10">
       <div className="flex items-center gap-4">
@@ -23,12 +25,28 @@ export function Topbar() {
         </div>
         
         <div className="flex items-center gap-4 border-l border-brand-gray pl-6">
-          <button className="text-brand-darkGray hover:text-brand-black transition-colors relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-brand-yellow rounded-full"></span>
-          </button>
+          <div className="relative">
+            <button 
+              className="text-brand-darkGray hover:text-brand-black transition-colors relative"
+              onClick={() => setShowNotifications(!showNotifications)}
+            >
+              <Bell className="w-5 h-5" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-brand-yellow rounded-full"></span>
+            </button>
+            
+            {showNotifications && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg border border-brand-gray py-2 z-50">
+                <div className="px-4 py-2 border-b border-brand-gray">
+                  <h4 className="font-semibold text-sm">Notifications</h4>
+                </div>
+                <div className="p-4 text-sm text-brand-darkGray text-center">
+                  You're all caught up!
+                </div>
+              </div>
+            )}
+          </div>
           
-          <div className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center gap-2 cursor-pointer relative">
             <div className="w-8 h-8 rounded-full bg-brand-charcoal text-white flex items-center justify-center">
               <User className="w-4 h-4" />
             </div>

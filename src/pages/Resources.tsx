@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -13,6 +14,12 @@ const resources = [
 ];
 
 export function Resources() {
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+
+  const filteredResources = selectedCategory === 'All Categories' 
+    ? resources 
+    : resources.filter(r => r.category === selectedCategory);
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -22,17 +29,24 @@ export function Resources() {
         </div>
         
         <div className="flex gap-2">
-          <select className="p-2 border border-brand-gray rounded-md text-sm bg-white focus:outline-none focus:ring-1 focus:ring-brand-yellow">
+          <select 
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="p-2 border border-brand-gray rounded-md text-sm bg-white focus:outline-none focus:ring-1 focus:ring-brand-yellow"
+          >
             <option>All Categories</option>
+            <option>Responsible AI</option>
             <option>Procurement</option>
             <option>Supply Chain</option>
+            <option>Design</option>
             <option>Prompting</option>
+            <option>ERP + AI</option>
           </select>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {resources.map(res => (
+        {filteredResources.map(res => (
           <Card key={res.id} className="flex flex-col hover:border-brand-charcoal transition-colors">
             <CardHeader className="pb-4">
               <div className="flex justify-between items-start mb-2">
@@ -52,7 +66,7 @@ export function Resources() {
               <p className="text-sm text-brand-charcoal flex-1">{res.desc}</p>
               
               <div className="mt-6 pt-4 border-t border-brand-gray">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => alert(`Opening ${res.title}`)}>
                   {res.type === 'PDF' ? <><Download className="w-4 h-4 mr-2" /> Download File</> : 'Open Resource'}
                 </Button>
               </div>

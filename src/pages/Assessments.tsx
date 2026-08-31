@@ -14,6 +14,8 @@ const assessmentsList = [
 
 export function Assessments() {
   const [activeQuiz, setActiveQuiz] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -90,7 +92,7 @@ export function Assessments() {
             </Card>
           </div>
         </div>
-      ) : (
+      ) : !quizCompleted ? (
         <Card className="max-w-3xl mx-auto border-2 border-brand-charcoal">
           <CardHeader className="border-b border-brand-gray bg-brand-lightGray">
             <div className="flex items-center justify-between">
@@ -109,16 +111,27 @@ export function Assessments() {
             <div className="space-y-3 mb-8">
               {['A draft of CSTech\'s upcoming Q4 financial earnings.', 'A public product manual for the CST/Berger transit level.', 'An Excel sheet of employee salaries and performance reviews.', 'A supplier contract containing confidential pricing.'].map((option, i) => (
                 <label key={i} className="flex items-start gap-3 p-4 border border-brand-gray rounded-md hover:bg-brand-lightGray cursor-pointer transition-colors">
-                  <input type="radio" name="q1" className="mt-1 w-4 h-4 text-brand-yellow focus:ring-brand-yellow border-gray-300" />
+                  <input type="radio" name="q1" checked={selectedOption === i} onChange={() => setSelectedOption(i)} className="mt-1 w-4 h-4 text-brand-yellow focus:ring-brand-yellow border-gray-300" />
                   <span className="text-sm">{option}</span>
                 </label>
               ))}
             </div>
 
             <div className="flex justify-between items-center pt-6 border-t border-brand-gray">
-              <Button variant="outline" onClick={() => setActiveQuiz(false)}>Cancel Assessment</Button>
-              <Button>Next Question</Button>
+              <Button variant="outline" onClick={() => { setActiveQuiz(false); setQuizCompleted(false); }}>Cancel Assessment</Button>
+              <Button onClick={() => setQuizCompleted(true)} disabled={selectedOption === null}>Submit Assessment</Button>
             </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card className="max-w-3xl mx-auto border-2 border-brand-charcoal text-center">
+          <CardContent className="p-12">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-12 h-12 text-green-600" />
+            </div>
+            <h2 className="text-2xl font-bold mb-2">Assessment Completed!</h2>
+            <p className="text-brand-darkGray mb-8">You scored 100% on the Responsible AI Assessment.</p>
+            <Button onClick={() => { setActiveQuiz(false); setQuizCompleted(false); }}>Return to Assessments</Button>
           </CardContent>
         </Card>
       )}
