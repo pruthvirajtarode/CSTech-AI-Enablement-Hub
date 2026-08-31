@@ -6,6 +6,7 @@ import {
   Building2, Truck, Wrench, Search, FileText, CheckCircle2,
   ArrowRightLeft, AlertTriangle, ShieldCheck, Mail, ClipboardCheck, ArrowRight
 } from 'lucide-react';
+import { useToast } from '../components/ui/Toast';
 
 const departments = [
   { id: 'procurement', name: 'Procurement AI Lab', icon: Building2, desc: 'Reduce repetitive analysis and improve procurement workflows.' },
@@ -43,6 +44,7 @@ export function DepartmentLabs() {
   const [demoLoaded, setDemoLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   const tools = departmentTools[activeDept.id as keyof typeof departmentTools];
 
@@ -170,7 +172,7 @@ export function DepartmentLabs() {
                         setDemoLoaded(false);
                         if (fileInputRef.current) fileInputRef.current.value = '';
                       }}>Reset</Button>
-                      <Button onClick={() => alert("Summary successfully exported to ERP system!")}>Export Summary to ERP</Button>
+                      <Button onClick={() => toast({ title: 'Export Successful', message: 'Summary successfully exported to ERP system!', type: 'success' })}>Export Summary to ERP</Button>
                     </div>
                   </div>
                 ) : (

@@ -12,25 +12,29 @@ import { Assessments } from './pages/Assessments';
 import { Resources } from './pages/Resources';
 import { Login } from './pages/Login';
 
+import { ToastProvider } from './components/ui/Toast';
+
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route element={<AppLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="foundations" element={<AIFoundations />} />
-          <Route path="prompt-lab" element={<PromptLab />} />
-          <Route path="tools" element={<AITools />} />
-          <Route path="departments" element={<DepartmentLabs />} />
-          <Route path="workflow" element={<WorkflowStudio />} />
-          <Route path="erp" element={<ERPIntegration />} />
-          <Route path="assessments" element={<Assessments />} />
-          <Route path="resources" element={<Resources />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ToastProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="foundations" element={<AIFoundations />} />
+            <Route path="prompt-lab" element={<PromptLab />} />
+            <Route path="tools" element={<AITools />} />
+            <Route path="departments" element={<DepartmentLabs />} />
+            <Route path="workflow" element={<WorkflowStudio />} />
+            <Route path="erp" element={<ERPIntegration />} />
+            <Route path="assessments" element={<Assessments />} />
+            <Route path="resources" element={<Resources />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
   );
 }
 

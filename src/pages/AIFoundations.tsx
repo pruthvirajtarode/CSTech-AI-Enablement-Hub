@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card'
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { CheckCircle2, PlayCircle, Lock } from 'lucide-react';
+import { useToast } from '../components/ui/Toast';
 
 const modules = [
   { id: 1, title: 'What is AI?', desc: 'AI vs traditional software & automation.', status: 'completed' },
@@ -19,109 +20,115 @@ const modules = [
   { id: 12, title: 'AI Readiness', desc: 'Final foundation assessment.', status: 'locked' }
 ];
 
-const moduleContent: Record<number, React.ReactNode> = {
-  1: (
-    <>
-      <p className="text-lg text-brand-black mb-4">
-        Artificial Intelligence is a broad field of computer science focused on creating systems capable of performing tasks that typically require human intelligence.
-      </p>
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">AI vs Traditional Software</h3>
-      <p className="mb-4">Traditional software follows strict rules defined by programmers (if X, then Y). AI learns patterns from data to make decisions or generate content, making it adaptable to new, unseen situations.</p>
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Examples at CSTech</h3>
-      <ul className="list-disc pl-5 space-y-2 mb-6">
-        <li>Traditional Automation: An ERP script that automatically reorders stock when it drops below 50 units.</li>
-        <li>AI Assistant: A tool that analyzes a delayed shipment report and suggests which alternative suppliers to contact based on past reliability.</li>
-      </ul>
-    </>
-  ),
-  2: (
-    <>
-      <p className="text-lg text-brand-black mb-4">
-        Generative AI refers to algorithms (such as ChatGPT) that can be used to create new content, including audio, code, images, text, simulations, and videos.
-      </p>
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">What are LLMs?</h3>
-      <p className="mb-4">Large Language Models (LLMs) are trained on massive amounts of text data. They work by predicting the next logical word in a sequence, allowing them to generate human-like text.</p>
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Strengths and Weaknesses</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-        <Card className="bg-green-50 border-green-200">
-          <CardHeader><CardTitle className="text-green-800 text-lg">What AI is good at</CardTitle></CardHeader>
-          <CardContent><ul className="list-disc pl-4 text-green-900 text-sm space-y-1"><li>Summarizing long RFQs</li><li>Drafting emails</li><li>Extracting data from specs</li></ul></CardContent>
-        </Card>
-        <Card className="bg-red-50 border-red-200">
-          <CardHeader><CardTitle className="text-red-800 text-lg">What AI is NOT good at</CardTitle></CardHeader>
-          <CardContent><ul className="list-disc pl-4 text-red-900 text-sm space-y-1"><li>Exact mathematical calculations</li><li>Knowing CSTech internal secrets</li><li>Making final approvals</li></ul></CardContent>
-        </Card>
-      </div>
-    </>
-  ),
-  3: (
-    <>
-      <p className="text-lg text-brand-black mb-4">
-        Interacting with an AI assistant is like delegating a task to a smart, but completely new, intern. You need to be clear, provide context, and set expectations.
-      </p>
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Giving Context</h3>
-      <p className="mb-4">Always provide the necessary background. If you want the AI to analyze a leveling rod spec, you must paste the spec or upload the document. The AI does not know your internal files.</p>
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Refining Responses</h3>
-      <p className="mb-6">Don't settle for the first response. If the AI gives you a paragraph but you wanted a bulleted list, simply reply: <i>"Format that as a bulleted list."</i></p>
-    </>
-  ),
-  4: (
-    <>
-      <p className="text-lg text-brand-black">
-        In this module, you will learn the fundamental structure of a high-quality prompt. 
-        Writing good prompts is the most important skill for interacting with AI effectively.
-      </p>
+const ModuleContent = ({ id }: { id: number }) => {
+  const { toast } = useToast();
 
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">The Framework</h3>
-      <p>Stop asking simple questions and expecting complex results. Use this framework: <strong>ROLE + CONTEXT + TASK + CONSTRAINTS + OUTPUT FORMAT</strong></p>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-        <Card className="bg-brand-black text-brand-white border-none">
-          <CardHeader>
-            <Badge variant="destructive" className="w-fit mb-2">Bad Prompt</Badge>
-            <CardTitle className="text-brand-white">"Analyze this quotation."</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-400 text-sm">
-              This gives the AI no context, no specific role to play, and no format for the output. The AI will guess what you want.
-            </p>
+  const content: Record<number, React.ReactNode> = {
+    1: (
+      <>
+        <p className="text-lg text-brand-black mb-4">
+          Artificial Intelligence is a broad field of computer science focused on creating systems capable of performing tasks that typically require human intelligence.
+        </p>
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">AI vs Traditional Software</h3>
+        <p className="mb-4">Traditional software follows strict rules defined by programmers (if X, then Y). AI learns patterns from data to make decisions or generate content, making it adaptable to new, unseen situations.</p>
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Examples at CSTech</h3>
+        <ul className="list-disc pl-5 space-y-2 mb-6">
+          <li>Traditional Automation: An ERP script that automatically reorders stock when it drops below 50 units.</li>
+          <li>AI Assistant: A tool that analyzes a delayed shipment report and suggests which alternative suppliers to contact based on past reliability.</li>
+        </ul>
+      </>
+    ),
+    2: (
+      <>
+        <p className="text-lg text-brand-black mb-4">
+          Generative AI refers to algorithms (such as ChatGPT) that can be used to create new content, including audio, code, images, text, simulations, and videos.
+        </p>
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">What are LLMs?</h3>
+        <p className="mb-4">Large Language Models (LLMs) are trained on massive amounts of text data. They work by predicting the next logical word in a sequence, allowing them to generate human-like text.</p>
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Strengths and Weaknesses</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <Card className="bg-green-50 border-green-200">
+            <CardHeader><CardTitle className="text-green-800 text-lg">What AI is good at</CardTitle></CardHeader>
+            <CardContent><ul className="list-disc pl-4 text-green-900 text-sm space-y-1"><li>Summarizing long RFQs</li><li>Drafting emails</li><li>Extracting data from specs</li></ul></CardContent>
+          </Card>
+          <Card className="bg-red-50 border-red-200">
+            <CardHeader><CardTitle className="text-red-800 text-lg">What AI is NOT good at</CardTitle></CardHeader>
+            <CardContent><ul className="list-disc pl-4 text-red-900 text-sm space-y-1"><li>Exact mathematical calculations</li><li>Knowing CSTech internal secrets</li><li>Making final approvals</li></ul></CardContent>
+          </Card>
+        </div>
+      </>
+    ),
+    3: (
+      <>
+        <p className="text-lg text-brand-black mb-4">
+          Interacting with an AI assistant is like delegating a task to a smart, but completely new, intern. You need to be clear, provide context, and set expectations.
+        </p>
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Giving Context</h3>
+        <p className="mb-4">Always provide the necessary background. If you want the AI to analyze a leveling rod spec, you must paste the spec or upload the document. The AI does not know your internal files.</p>
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Refining Responses</h3>
+        <p className="mb-6">Don't settle for the first response. If the AI gives you a paragraph but you wanted a bulleted list, simply reply: <i>"Format that as a bulleted list."</i></p>
+      </>
+    ),
+    4: (
+      <>
+        <p className="text-lg text-brand-black">
+          In this module, you will learn the fundamental structure of a high-quality prompt. 
+          Writing good prompts is the most important skill for interacting with AI effectively.
+        </p>
+
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">The Framework</h3>
+        <p>Stop asking simple questions and expecting complex results. Use this framework: <strong>ROLE + CONTEXT + TASK + CONSTRAINTS + OUTPUT FORMAT</strong></p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+          <Card className="bg-brand-black text-brand-white border-none">
+            <CardHeader>
+              <Badge variant="destructive" className="w-fit mb-2">Bad Prompt</Badge>
+              <CardTitle className="text-brand-white">"Analyze this quotation."</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-400 text-sm">
+                This gives the AI no context, no specific role to play, and no format for the output. The AI will guess what you want.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-brand-yellow border-none text-brand-black">
+            <CardHeader>
+              <Badge variant="default" className="w-fit mb-2">Good Prompt</Badge>
+              <CardTitle className="text-brand-black font-bold">
+                "You are a procurement analyst. Compare the attached supplier quotations. Identify price differences and delivery terms. Return the result as a table."
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-brand-charcoal text-sm">
+                This defines the Role, Task, Context, and Output Format.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Interactive "Try It"</h3>
+        <Card className="bg-brand-lightGray border-brand-gray">
+          <CardContent className="p-6">
+            <p className="font-semibold mb-4 text-brand-black">Your turn: Rewrite the following prompt to be more specific for a CSTech engineering task.</p>
+            <p className="italic text-brand-darkGray mb-4">Original: "Summarize this document about leveling rods."</p>
+            
+            <textarea 
+              className="w-full p-4 rounded-md border border-brand-gray mb-4 text-sm focus:ring-2 focus:ring-brand-yellow focus:outline-none bg-white"
+              rows={4}
+              placeholder="Enter your improved prompt using the framework..."
+            ></textarea>
+            
+            <div className="flex justify-end">
+              <Button onClick={() => toast({ title: 'Submitted', message: 'Answer submitted for review!', type: 'success' })}>Submit Answer</Button>
+            </div>
           </CardContent>
         </Card>
+      </>
+    )
+  };
 
-        <Card className="bg-brand-yellow border-none text-brand-black">
-          <CardHeader>
-            <Badge variant="default" className="w-fit mb-2">Good Prompt</Badge>
-            <CardTitle className="text-brand-black font-bold">
-              "You are a procurement analyst. Compare the attached supplier quotations. Identify price differences and delivery terms. Return the result as a table."
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-brand-charcoal text-sm">
-              This defines the Role, Task, Context, and Output Format.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <h3 className="text-xl mt-8 mb-4 font-bold text-brand-black">Interactive "Try It"</h3>
-      <Card className="bg-brand-lightGray border-brand-gray">
-        <CardContent className="p-6">
-          <p className="font-semibold mb-4 text-brand-black">Your turn: Rewrite the following prompt to be more specific for a CSTech engineering task.</p>
-          <p className="italic text-brand-darkGray mb-4">Original: "Summarize this document about leveling rods."</p>
-          
-          <textarea 
-            className="w-full p-4 rounded-md border border-brand-gray mb-4 text-sm focus:ring-2 focus:ring-brand-yellow focus:outline-none bg-white"
-            rows={4}
-            placeholder="Enter your improved prompt using the framework..."
-          ></textarea>
-          
-          <div className="flex justify-end">
-            <Button onClick={() => alert("Answer submitted for review!")}>Submit Answer</Button>
-          </div>
-        </CardContent>
-      </Card>
-    </>
-  )
+  return <>{content[id]}</>;
 };
 
 export function AIFoundations() {
@@ -199,8 +206,8 @@ export function AIFoundations() {
             <Badge variant="outline" className="mb-4 w-fit">Module {String(selectedModule.id).padStart(2, '0')}</Badge>
             <h2 className="text-3xl font-bold mb-6">{selectedModule.title}</h2>
             
-            <div className="prose prose-sm max-w-none prose-headings:font-semibold text-brand-charcoal flex-1">
-              {moduleContent[selectedModule.id]}
+            <div className="prose prose-sm max-w-none text-brand-darkGray">
+              <ModuleContent id={selectedModule.id} />
             </div>
 
             <div className="mt-12 pt-6 border-t border-brand-gray flex justify-between items-center">

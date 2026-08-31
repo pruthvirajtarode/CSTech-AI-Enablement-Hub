@@ -6,6 +6,7 @@ import {
   Play, Plus, Save, Settings, Mail, FileText, Bot, 
   UserCheck, Server, AlertCircle, ArrowDown
 } from 'lucide-react';
+import { useToast } from '../components/ui/Toast';
 
 const blockTypes = [
   { id: 'trigger', name: 'Trigger', icon: Play, color: 'bg-blue-100 text-blue-700 border-blue-300' },
@@ -28,6 +29,7 @@ const sampleWorkflow: Block[] = [
 
 export function WorkflowStudio() {
   const [nodes, setNodes] = useState<Block[]>(sampleWorkflow);
+  const { toast } = useToast();
   
   const addNode = (type: typeof blockTypes[0]) => {
     setNodes([...nodes, { id: Date.now().toString(), type, title: `New ${type.name}` }]);
@@ -45,9 +47,9 @@ export function WorkflowStudio() {
           <p className="text-brand-darkGray text-lg">Design AI-powered workflows to automate repetitive analysis.</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" onClick={() => alert("Settings panel would open here.")}><Settings className="w-4 h-4 mr-2" /> Settings</Button>
-          <Button variant="secondary" onClick={() => alert("Draft saved successfully!")}><Save className="w-4 h-4 mr-2" /> Save Draft</Button>
-          <Button onClick={() => alert("Starting workflow test run...")}><Play className="w-4 h-4 mr-2" /> Run Test</Button>
+          <Button variant="outline" onClick={() => toast({ title: 'Settings', message: 'Settings panel would open here.', type: 'info' })}><Settings className="w-4 h-4 mr-2" /> Settings</Button>
+          <Button variant="secondary" onClick={() => toast({ title: 'Draft Saved', message: 'Draft saved successfully!', type: 'success' })}><Save className="w-4 h-4 mr-2" /> Save Draft</Button>
+          <Button onClick={() => toast({ title: 'Test Run Started', message: 'Starting workflow test run...', type: 'success' })}><Play className="w-4 h-4 mr-2" /> Run Test</Button>
         </div>
       </div>
 

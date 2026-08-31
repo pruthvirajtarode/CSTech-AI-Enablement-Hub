@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { Book, Video, FileText, Download, ExternalLink, Clock } from 'lucide-react';
+import { Book, Video, FileText, Download, ExternalLink, Clock, X, Loader2 } from 'lucide-react';
+import { useToast } from '../components/ui/Toast';
 
 const resources = [
   { id: 1, title: 'CSTech AI Policy 2026', category: 'Responsible AI', type: 'PDF', time: '5 mins', difficulty: 'Beginner', desc: 'The official internal guidelines for using generative AI tools securely at CSTech.' },
@@ -15,6 +16,8 @@ const resources = [
 
 export function Resources() {
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [viewingResource, setViewingResource] = useState<typeof resources[0] | null>(null);
+  const { toast } = useToast();
 
   const filteredResources = selectedCategory === 'All Categories' 
     ? resources 
@@ -66,7 +69,13 @@ export function Resources() {
               <p className="text-sm text-brand-charcoal flex-1">{res.desc}</p>
               
               <div className="mt-6 pt-4 border-t border-brand-gray">
-                <Button variant="outline" className="w-full" onClick={() => alert(`Opening ${res.title}`)}>
+                <Button variant="outline" className="w-full" onClick={() => {
+                  if (res.type === 'PDF') {
+                    toast({ title: 'Download Started', message: `Downloading ${res.title}...`, type: 'info' });
+                  } else {
+                    setViewingResource(res);
+                  }
+                }}>
                   {res.type === 'PDF' ? <><Download className="w-4 h-4 mr-2" /> Download File</> : 'Open Resource'}
                 </Button>
               </div>
@@ -74,6 +83,34 @@ export function Resources() {
           </Card>
         ))}
       </div>
+
+      {viewingResource && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setViewingResource(null)}>
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden text-brand-black border border-brand-gray" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center p-4 border-b border-brand-gray bg-brand-lightGray">
+              <div className="flex items-center gap-3">
+                <Badge variant="outline">{viewingResource.type}</Badge>
+                <h2 className="text-lg font-bold">{viewingResource.title}</h2>
+              </div>
+              <button onClick={() => setViewingResource(null)} className="text-brand-darkGray hover:text-brand-black transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 bg-gray-100 flex flex-col items-center justify-center relative">
+              <div className="absolute inset-0 bg-grid-brand-gray/5 bg-[size:20px_20px]"></div>
+              <Loader2 className="w-8 h-8 animate-spin text-brand-yellow mb-4" />
+              <p className="text-brand-darkGray font-medium">Loading {viewingResource.type.toLowerCase()} viewer...</p>
+              <p className="text-sm text-gray-400 mt-2">Simulated resource view</p>
+            </div>
+            <div className="p-4 border-t border-brand-gray bg-gray-50 flex justify-between items-center">
+              <span className="text-xs text-brand-darkGray">CSTech Confidential</span>
+              <button onClick={() => setViewingResource(null)} className="px-4 py-2 bg-brand-black text-white rounded-md text-sm font-medium hover:bg-gray-800 transition-colors">
+                Close Viewer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { useToast } from '../components/ui/Toast';
 import { 
   FileText, Mail, FileJson, Search, Table, 
   ListChecks, ArrowRightLeft, FileBarChart, PenTool, ClipboardList,
@@ -25,6 +26,7 @@ export function AITools() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const { toast } = useToast();
 
   const handleProcess = () => {
     if (!input.trim()) return;
@@ -132,10 +134,13 @@ export function AITools() {
                   <Button variant="outline" size="sm" onClick={() => setOutput('')}>
                     <RefreshCw className="w-4 h-4 mr-2" /> Regenerate
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(output)}>
+                  <Button variant="outline" size="sm" onClick={() => {
+                    navigator.clipboard.writeText(output);
+                    toast({ title: 'Copied', message: 'Output copied to clipboard', type: 'success' });
+                  }}>
                     <Copy className="w-4 h-4 mr-2" /> Copy
                   </Button>
-                  <Button variant="secondary" size="sm" onClick={() => alert("Output downloaded!")}>
+                  <Button variant="secondary" size="sm" onClick={() => toast({ title: 'Download Started', message: 'Output downloaded to your device', type: 'success' })}>
                     <Download className="w-4 h-4 mr-2" /> Download
                   </Button>
                 </div>
