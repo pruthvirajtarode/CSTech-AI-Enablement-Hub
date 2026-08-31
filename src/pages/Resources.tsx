@@ -170,10 +170,14 @@ export function Resources() {
                             </div>
                           </>
                         ) : (
-                          <video controls autoPlay className="w-full h-full object-cover outline-none bg-black">
-                             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4" />
-                             Your browser does not support the video tag.
-                          </video>
+                          <iframe 
+                            className="w-full h-full border-none outline-none"
+                            src="https://www.youtube.com/embed/jNQXAC9IVRw?autoplay=1" 
+                            title="Placeholder Video"
+                            frameBorder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowFullScreen>
+                          </iframe>
                         )}
                       </div>
                     ) : (
