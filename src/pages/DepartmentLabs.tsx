@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { 
-  Building2, Truck, Wrench, Search, FileText, 
+  Building2, Truck, Wrench, Search, FileText, CheckCircle2,
   ArrowRightLeft, AlertTriangle, ShieldCheck, Mail, ClipboardCheck, ArrowRight
 } from 'lucide-react';
 
@@ -39,9 +39,24 @@ const departmentTools = {
 
 export function DepartmentLabs() {
   const [activeDept, setActiveDept] = useState(departments[0]);
-  const [activeTool, setActiveTool] = useState<string | null>(null);
+  const [activeTool, setActiveTool] = useState<string | null>('RFQ Analysis');
+  const [demoLoaded, setDemoLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const tools = departmentTools[activeDept.id as keyof typeof departmentTools];
+
+  const handleToolClick = (toolName: string) => {
+    setActiveTool(toolName);
+    setDemoLoaded(false);
+  };
+
+  const handleLoadDemo = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setDemoLoaded(true);
+    }, 1500);
+  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -98,7 +113,7 @@ export function DepartmentLabs() {
             {tools.map((tool, idx) => (
               <button
                 key={idx}
-                onClick={() => setActiveTool(tool.name)}
+                onClick={() => handleToolClick(tool.name)}
                 className={`w-full flex items-center justify-between p-4 rounded-lg border transition-all text-left ${
                   activeTool === tool.name 
                     ? 'border-brand-black bg-white shadow-md' 
@@ -128,22 +143,53 @@ export function DepartmentLabs() {
                 <CardDescription>Upload sample data or paste context to run this workflow.</CardDescription>
               </CardHeader>
               <CardContent className="flex-1 p-6 flex flex-col justify-center items-center text-center">
-                {/* Simulated tool UI placeholder */}
-                <div className="max-w-md w-full">
-                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-dashed border-gray-300">
-                    <FileText className="w-8 h-8 text-brand-darkGray" />
+                {demoLoaded ? (
+                  <div className="w-full text-left space-y-4 text-brand-black">
+                    <div className="bg-green-50 text-green-800 p-4 rounded-md border border-green-200">
+                      <h4 className="font-bold flex items-center gap-2"><CheckCircle2 className="w-5 h-5" /> Analysis Complete</h4>
+                      <p className="text-sm mt-1">Successfully analyzed 3 supplier RFQs for Leveling Rods.</p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-bold text-lg mb-2">Key Findings:</h4>
+                      <ul className="list-disc pl-5 space-y-2 text-sm text-brand-charcoal">
+                        <li><strong>Supplier A (CSTech Standard):</strong> Lowest unit price ($45/unit) but lead time is 6 weeks.</li>
+                        <li><strong>Supplier B:</strong> Premium pricing ($52/unit) but guarantees 2-week delivery. Contains a clause penalty for delays.</li>
+                        <li><strong>Supplier C:</strong> Incomplete quote. Missing warranty specifications. <span className="text-red-500 font-bold">Action Required.</span></li>
+                      </ul>
+                    </div>
+
+                    <div className="pt-4 border-t border-brand-gray">
+                      <h4 className="font-bold mb-2">Recommended Next Step:</h4>
+                      <p className="text-sm text-brand-charcoal">Draft an email to Supplier C requesting the missing warranty information, and negotiate delivery terms with Supplier A.</p>
+                    </div>
+
+                    <div className="flex justify-end gap-3 pt-4">
+                      <Button variant="outline" onClick={() => setDemoLoaded(false)}>Reset</Button>
+                      <Button>Export Summary to ERP</Button>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">Upload Data for {activeTool}</h3>
-                  <p className="text-sm text-brand-darkGray mb-8">
-                    To test this workflow, provide sample data. For example, upload 3 mock supplier quotations or a dummy requirements document.
-                  </p>
-                  
-                  <div className="space-y-3">
-                    <Button className="w-full justify-center">Use Demo Dataset</Button>
-                    <div className="text-sm text-brand-darkGray my-2">- OR -</div>
-                    <Button variant="outline" className="w-full justify-center">Upload CSV / PDF</Button>
+                ) : (
+                  <div className="max-w-md w-full">
+                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-dashed border-gray-300">
+                      <FileText className="w-8 h-8 text-brand-darkGray" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">Upload Data for {activeTool}</h3>
+                    <p className="text-sm text-brand-darkGray mb-8">
+                      To test this workflow, provide sample data. For example, upload 3 mock supplier quotations or a dummy requirements document.
+                    </p>
+                    
+                    <div className="space-y-3">
+                      <Button className="w-full justify-center" onClick={handleLoadDemo} disabled={isLoading}>
+                        {isLoading ? 'Processing...' : 'Use Demo Dataset'}
+                      </Button>
+                      <div className="text-sm text-brand-darkGray my-2">- OR -</div>
+                      <Button variant="outline" className="w-full justify-center" onClick={() => alert("Upload functionality is a placeholder.")}>
+                        Upload CSV / PDF
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                )}
               </CardContent>
             </Card>
           ) : (
