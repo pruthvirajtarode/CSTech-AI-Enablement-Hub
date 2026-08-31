@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { GraduationCap, CheckCircle2, XCircle, Award, Target } from 'lucide-react';
+import { CheckCircle2, XCircle, Award, Target } from 'lucide-react';
 
 const assessmentsList = [
   { id: 'a1', title: 'AI Basics', score: 85, status: 'completed' },

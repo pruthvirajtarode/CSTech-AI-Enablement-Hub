@@ -11,15 +11,6 @@ import { ERPIntegration } from './pages/ERPIntegration';
 import { Assessments } from './pages/Assessments';
 import { Resources } from './pages/Resources';
 import { Login } from './pages/Login';
-// Placeholder pages
-const PlaceholderPage = ({ title }: { title: string }) => (
-  <div className="flex items-center justify-center h-full">
-    <div className="text-center">
-      <h1 className="text-2xl font-bold mb-2">{title}</h1>
-      <p className="text-brand-darkGray">This section is currently under development.</p>
-    </div>
-  </div>
-);
 
 function App() {
   return (
