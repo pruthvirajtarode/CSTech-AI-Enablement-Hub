@@ -46,6 +46,8 @@ export function PromptLab() {
     setTask('Compare the commercial terms of these three suppliers and identify the best overall value.');
     setConstraints('Highlight any risk flags such as payment terms exceeding 60 days or lead times over 8 weeks.');
     setOutputFormat('A brief executive summary followed by a comparison table and a bulleted list of risks.');
+    setResponse('');
+    setCopied(false);
   };
 
   return (
