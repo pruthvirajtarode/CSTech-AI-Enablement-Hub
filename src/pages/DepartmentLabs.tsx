@@ -166,8 +166,11 @@ export function DepartmentLabs() {
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4">
-                      <Button variant="outline" onClick={() => setDemoLoaded(false)}>Reset</Button>
-                      <Button>Export Summary to ERP</Button>
+                      <Button variant="outline" onClick={() => {
+                        setDemoLoaded(false);
+                        if (fileInputRef.current) fileInputRef.current.value = '';
+                      }}>Reset</Button>
+                      <Button onClick={() => alert("Summary successfully exported to ERP system!")}>Export Summary to ERP</Button>
                     </div>
                   </div>
                 ) : (

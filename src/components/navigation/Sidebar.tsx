@@ -16,7 +16,12 @@ import {
   X
 } from 'lucide-react';
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
+}
+
+export function Sidebar({ isOpen = false, setIsOpen }: SidebarProps) {
   const [activeModal, setActiveModal] = useState<'settings' | 'help' | null>(null);
 
   const navItems = [
@@ -32,11 +37,27 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 h-screen bg-brand-black text-brand-white flex flex-col fixed left-0 top-0 border-r border-brand-charcoal overflow-y-auto">
-      <div className="p-6">
-        <h1 className="text-xl font-bold tracking-tight">CSTech AI</h1>
-        <p className="text-xs text-brand-gray mt-1">Enablement Hub</p>
-      </div>
+    <>
+      {/* Mobile Backdrop */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsOpen?.(false)}
+        />
+      )}
+      <aside className={cn(
+        "w-64 h-screen bg-brand-black text-brand-white flex flex-col fixed left-0 top-0 border-r border-brand-charcoal overflow-y-auto z-50 transition-transform duration-300",
+        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      )}>
+        <div className="p-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-bold tracking-tight">CSTech AI</h1>
+            <p className="text-xs text-brand-gray mt-1">Enablement Hub</p>
+          </div>
+          <button className="lg:hidden text-brand-gray hover:text-white" onClick={() => setIsOpen?.(false)}>
+            <X className="w-6 h-6" />
+          </button>
+        </div>
 
       <nav className="flex-1 px-4 space-y-1">
         {navItems.map((item) => (
@@ -118,5 +139,6 @@ export function Sidebar() {
         </div>
       )}
     </aside>
+    </>
   );
 }

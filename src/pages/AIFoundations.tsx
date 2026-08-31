@@ -116,7 +116,7 @@ const moduleContent: Record<number, React.ReactNode> = {
           ></textarea>
           
           <div className="flex justify-end">
-            <Button>Submit Answer</Button>
+            <Button onClick={() => alert("Answer submitted for review!")}>Submit Answer</Button>
           </div>
         </CardContent>
       </Card>

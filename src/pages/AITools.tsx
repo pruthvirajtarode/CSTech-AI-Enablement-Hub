@@ -135,7 +135,7 @@ export function AITools() {
                   <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(output)}>
                     <Copy className="w-4 h-4 mr-2" /> Copy
                   </Button>
-                  <Button variant="secondary" size="sm">
+                  <Button variant="secondary" size="sm" onClick={() => alert("Output downloaded!")}>
                     <Download className="w-4 h-4 mr-2" /> Download
                   </Button>
                 </div>

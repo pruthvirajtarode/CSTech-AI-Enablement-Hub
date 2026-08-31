@@ -45,9 +45,9 @@ export function WorkflowStudio() {
           <p className="text-brand-darkGray text-lg">Design AI-powered workflows to automate repetitive analysis.</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline"><Settings className="w-4 h-4 mr-2" /> Settings</Button>
-          <Button variant="secondary"><Save className="w-4 h-4 mr-2" /> Save Draft</Button>
-          <Button><Play className="w-4 h-4 mr-2" /> Run Test</Button>
+          <Button variant="outline" onClick={() => alert("Settings panel would open here.")}><Settings className="w-4 h-4 mr-2" /> Settings</Button>
+          <Button variant="secondary" onClick={() => alert("Draft saved successfully!")}><Save className="w-4 h-4 mr-2" /> Save Draft</Button>
+          <Button onClick={() => alert("Starting workflow test run...")}><Play className="w-4 h-4 mr-2" /> Run Test</Button>
         </div>
       </div>
 
