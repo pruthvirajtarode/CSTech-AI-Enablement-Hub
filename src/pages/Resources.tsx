@@ -28,6 +28,22 @@ export function Resources() {
     }
   }, [viewingResource]);
 
+  const handleDownload = (filename: string) => {
+    toast({ title: 'Download Started', message: `Downloading ${filename}...`, type: 'success' });
+    
+    const content = `CSTech Confidential Document\n\nTitle: ${filename}\n\nThis is a securely generated document for the demo environment.`;
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename.replace(/\s+/g, '_').toLowerCase() + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const filteredResources = selectedCategory === 'All Categories' 
     ? resources 
     : resources.filter(r => r.category === selectedCategory);
@@ -80,7 +96,7 @@ export function Resources() {
               <div className="mt-6 pt-4 border-t border-brand-gray">
                 <Button variant="outline" className="w-full" onClick={() => {
                   if (res.type === 'PDF') {
-                    toast({ title: 'Download Started', message: `Downloading ${res.title}...`, type: 'info' });
+                    handleDownload(res.title);
                   } else {
                     setViewingResource(res);
                   }
@@ -122,13 +138,33 @@ export function Resources() {
                      }
                   </div>
                   <h3 className="text-2xl font-bold text-brand-black mb-2">{viewingResource.title}</h3>
-                  <p className="text-brand-darkGray mb-6 max-w-md">{viewingResource.desc}</p>
+                  <p className="text-brand-darkGray mb-8 max-w-md">{viewingResource.desc}</p>
                   
-                  <div className="p-5 bg-white rounded-lg border border-brand-gray shadow-sm w-full max-w-md">
-                    <p className="text-sm text-brand-charcoal mb-4">
-                      This is a simulated demo environment. In the full platform, the actual {viewingResource.type.toLowerCase()} content would be securely embedded here for the user to view.
-                    </p>
-                    <Button onClick={() => setViewingResource(null)} className="w-full">Acknowledge</Button>
+                  <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col gap-4">
+                    <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
+                      <div className="w-12 h-12 bg-gray-100 rounded-md"></div>
+                      <div>
+                        <div className="h-4 bg-gray-200 rounded w-48 mb-2"></div>
+                        <div className="h-3 bg-gray-100 rounded w-24"></div>
+                      </div>
+                    </div>
+                    <div className="h-4 bg-gray-100 rounded w-full"></div>
+                    <div className="h-4 bg-gray-100 rounded w-11/12"></div>
+                    <div className="h-4 bg-gray-100 rounded w-4/5 mb-6"></div>
+                    
+                    {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? (
+                      <div className="w-full aspect-video bg-gray-900 rounded-lg flex items-center justify-center text-white/50">
+                        <Video className="w-12 h-12 opacity-50" />
+                      </div>
+                    ) : (
+                      <>
+                        <div className="h-40 bg-brand-lightGray rounded-lg w-full mb-6 border border-brand-gray border-dashed flex items-center justify-center text-brand-darkGray">
+                          [ Protected Document Viewer ]
+                        </div>
+                        <div className="h-4 bg-gray-100 rounded w-full"></div>
+                        <div className="h-4 bg-gray-100 rounded w-2/3"></div>
+                      </>
+                    )}
                   </div>
                 </div>
               )}
