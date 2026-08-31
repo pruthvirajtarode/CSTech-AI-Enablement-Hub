@@ -8,6 +8,7 @@ interface TopbarProps {
 
 export function Topbar({ onMenuClick }: TopbarProps) {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   return (
     <header className="h-16 bg-white border-b border-brand-gray flex items-center justify-between px-4 lg:px-8 sticky top-0 z-10">
@@ -58,7 +59,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
             )}
           </div>
           
-          <div className="flex items-center gap-2 cursor-pointer relative">
+          <div className="flex items-center gap-2 cursor-pointer relative" onClick={() => setShowProfileMenu(!showProfileMenu)}>
             <div className="w-8 h-8 rounded-full bg-brand-charcoal text-white flex items-center justify-center">
               <User className="w-4 h-4" />
             </div>
@@ -66,6 +67,20 @@ export function Topbar({ onMenuClick }: TopbarProps) {
               <p className="font-medium">Sarah Jenkins</p>
               <p className="text-xs text-brand-darkGray">Demo User</p>
             </div>
+            
+            {showProfileMenu && (
+              <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg border border-brand-gray py-2 z-50">
+                <div className="px-4 py-2 border-b border-brand-gray">
+                  <p className="font-semibold text-sm">My Account</p>
+                </div>
+                <button 
+                  className="w-full text-left px-4 py-2 text-sm text-brand-darkGray hover:bg-gray-50 hover:text-brand-black transition-colors"
+                  onClick={() => window.location.href = '/'}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

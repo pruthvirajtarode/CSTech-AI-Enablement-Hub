@@ -52,7 +52,7 @@ export function Sidebar({ isOpen = false, setIsOpen }: SidebarProps) {
         <div className="p-6 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <img src="/logo.avif" alt="CSTech Logo" className="w-8 h-8 object-contain rounded bg-white p-0.5" />
+              <img src="/logo.png" alt="CSTech Logo" className="w-8 h-8 object-contain rounded" />
               <h1 className="text-xl font-bold tracking-tight">CSTech AI</h1>
             </div>
             <p className="text-xs text-brand-gray">Enablement Hub</p>
