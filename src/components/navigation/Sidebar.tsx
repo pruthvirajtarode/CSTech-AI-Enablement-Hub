@@ -55,12 +55,12 @@ export function Sidebar() {
 
       <div className="p-4 mt-auto border-t border-brand-charcoal">
         <nav className="space-y-1">
-          <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white">
+          <button onClick={(e) => { e.preventDefault(); alert("Settings modal is coming soon!"); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white">
             <Settings className="w-4 h-4" /> Settings
-          </a>
-          <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white">
+          </button>
+          <button onClick={(e) => { e.preventDefault(); alert("Help & Support modal is coming soon!"); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white">
             <HelpCircle className="w-4 h-4" /> Help & Support
-          </a>
+          </button>
         </nav>
       </div>
     </aside>

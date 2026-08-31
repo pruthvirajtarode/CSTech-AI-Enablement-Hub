@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -23,6 +24,8 @@ const mockImpactData = [
 ];
 
 export function Dashboard() {
+  const navigate = useNavigate();
+
   return (
     <div className="space-y-8 animate-fade-in">
       
@@ -145,7 +148,7 @@ export function Dashboard() {
             </div>
             <p className="text-xs text-brand-darkGray text-right mb-6">45% Completed</p>
             
-            <Button className="w-full gap-2">
+            <Button className="w-full gap-2" onClick={() => navigate('/foundations')}>
               <Play className="w-4 h-4" /> Start Lesson
             </Button>
           </CardContent>
@@ -202,7 +205,7 @@ export function Dashboard() {
               Use the Procurement AI Lab to analyze three RFQs for leveling rods. Identify the key commercial differences and potential risk flags.
             </p>
           </div>
-          <Button variant="primary" className="whitespace-nowrap">
+          <Button variant="primary" className="whitespace-nowrap" onClick={() => navigate('/departments')}>
             Start Challenge <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>

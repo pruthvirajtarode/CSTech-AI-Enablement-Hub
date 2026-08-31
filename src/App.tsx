@@ -8,6 +8,8 @@ import { AITools } from './pages/AITools';
 import { DepartmentLabs } from './pages/DepartmentLabs';
 import { WorkflowStudio } from './pages/WorkflowStudio';
 import { ERPIntegration } from './pages/ERPIntegration';
+import { Assessments } from './pages/Assessments';
+import { Resources } from './pages/Resources';
 import { Login } from './pages/Login';
 // Placeholder pages
 const PlaceholderPage = ({ title }: { title: string }) => (
@@ -33,8 +35,8 @@ function App() {
           <Route path="departments" element={<DepartmentLabs />} />
           <Route path="workflow" element={<WorkflowStudio />} />
           <Route path="erp" element={<ERPIntegration />} />
-          <Route path="assessments" element={<PlaceholderPage title="Assessments" />} />
-          <Route path="resources" element={<PlaceholderPage title="Resources" />} />
+          <Route path="assessments" element={<Assessments />} />
+          <Route path="resources" element={<Resources />} />
         </Route>
       </Routes>
     </BrowserRouter>
