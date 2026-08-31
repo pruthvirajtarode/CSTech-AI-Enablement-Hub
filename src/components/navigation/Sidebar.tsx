@@ -65,9 +65,6 @@ export function Sidebar({ isOpen = false, setIsOpen, isCollapsed = false }: Side
             </button>
           )}
         </div>
-            <X className="w-6 h-6" />
-          </button>
-        </div>
 
       <nav className="flex-1 px-4 space-y-1">
         {navItems.map((item) => (

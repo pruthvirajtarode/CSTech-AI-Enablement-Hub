@@ -8,7 +8,7 @@ interface TopbarProps {
   isCollapsed?: boolean;
 }
 
-export function Topbar({ onMenuClick, onToggleCollapse, isCollapsed }: TopbarProps) {
+export function Topbar({ onMenuClick, onToggleCollapse }: TopbarProps) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 

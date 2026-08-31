@@ -35,7 +35,7 @@ export function Dashboard() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
@@ -57,7 +57,7 @@ export function Dashboard() {
           <Button variant="outline" onClick={() => navigate('/assessments')}>View Certification</Button>
           <Button onClick={() => navigate('/foundations')}>Resume Module</Button>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <Card className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
@@ -151,8 +151,9 @@ export function Dashboard() {
               </motion.div>
             ))}
           </div>
-        </Card>
-      </motion.div>
+        </CardContent>
+      </Card>
+    </motion.div>
 
       <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
@@ -240,8 +241,6 @@ export function Dashboard() {
             Start Challenge <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
-      </div>
-
       </motion.div>
 
     </motion.div>
