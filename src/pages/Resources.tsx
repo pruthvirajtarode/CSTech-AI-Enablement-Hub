@@ -147,30 +147,58 @@ export function Resources() {
                   <h3 className="text-2xl font-bold text-brand-black mb-2">{viewingResource.title}</h3>
                   <p className="text-brand-darkGray mb-8 max-w-md">{viewingResource.desc}</p>
                   
-                  <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col gap-4">
-                    <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
-                      <div className="w-12 h-12 bg-gray-100 rounded-md"></div>
-                      <div>
-                        <div className="h-4 bg-gray-200 rounded w-48 mb-2"></div>
-                        <div className="h-3 bg-gray-100 rounded w-24"></div>
-                      </div>
-                    </div>
-                    <div className="h-4 bg-gray-100 rounded w-full"></div>
-                    <div className="h-4 bg-gray-100 rounded w-11/12"></div>
-                    <div className="h-4 bg-gray-100 rounded w-4/5 mb-6"></div>
-                    
+                  <div className="w-full max-w-4xl bg-white p-0 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col overflow-hidden">
                     {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? (
-                      <div className="w-full aspect-video bg-gray-900 rounded-lg flex items-center justify-center text-white/50">
-                        <Video className="w-12 h-12 opacity-50" />
+                      <div className="w-full aspect-video bg-black relative flex items-center justify-center group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Video thumbnail" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" />
+                        <div className="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center z-10 shadow-lg transform group-hover:scale-110 transition-transform">
+                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[24px] border-l-black border-b-[12px] border-b-transparent ml-2"></div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                           <div className="flex items-center gap-4 text-white text-sm font-medium">
+                              <span>02:14</span>
+                              <div className="h-1.5 flex-1 bg-white/30 rounded-full overflow-hidden cursor-pointer relative">
+                                 <div className="absolute top-0 left-0 bottom-0 bg-brand-yellow w-1/3"></div>
+                                 <div className="absolute top-1/2 -translate-y-1/2 left-1/3 w-3 h-3 bg-white rounded-full shadow"></div>
+                              </div>
+                              <span>15:30</span>
+                           </div>
+                        </div>
                       </div>
                     ) : (
-                      <>
-                        <div className="h-40 bg-brand-lightGray rounded-lg w-full mb-6 border border-brand-gray border-dashed flex items-center justify-center text-brand-darkGray">
-                          [ Protected Document Viewer ]
+                      <div className="p-8 md:p-12 bg-white max-h-[65vh] overflow-y-auto">
+                        <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-100">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-brand-black text-brand-yellow rounded flex items-center justify-center font-bold text-xl">CS</div>
+                            <div>
+                               <p className="font-bold text-brand-black leading-tight">CSTech Global</p>
+                               <p className="text-xs text-brand-darkGray">Internal Knowledge Base</p>
+                            </div>
+                          </div>
+                          <span className="text-xs font-mono text-brand-darkGray bg-gray-100 px-3 py-1 rounded">DOC-{(Math.random() * 100000).toFixed(0)}</span>
                         </div>
-                        <div className="h-4 bg-gray-100 rounded w-full"></div>
-                        <div className="h-4 bg-gray-100 rounded w-2/3"></div>
-                      </>
+                        
+                        <h1 className="text-3xl font-bold text-brand-black mb-4">{viewingResource.title}</h1>
+                        <p className="text-lg text-brand-darkGray mb-8 leading-relaxed">{viewingResource.desc}</p>
+                        
+                        <div className="space-y-6 text-gray-700">
+                           <h2 className="text-xl font-semibold text-brand-black border-b border-gray-100 pb-2">1. Overview & Context</h2>
+                           <p className="leading-relaxed">This document serves as the primary reference material for {viewingResource.title.toLowerCase()}. It outlines the core principles, necessary context, and actionable steps required to implement these strategies effectively within the CSTech manufacturing environment. Please ensure all team members review this material before proceeding with integration.</p>
+                           
+                           <h2 className="text-xl font-semibold text-brand-black border-b border-gray-100 pb-2 pt-4">2. Implementation Framework</h2>
+                           <div className="bg-gray-50 p-6 rounded-lg border border-brand-gray">
+                              <ul className="list-disc pl-5 space-y-3">
+                                <li><strong>Establish Objectives:</strong> Define clear success criteria for the AI enablement initiative.</li>
+                                <li><strong>Stakeholder Alignment:</strong> Identify key personnel across procurement, supply chain, and design.</li>
+                                <li><strong>Feedback Loops:</strong> Implement monitoring to track efficiency gains and model accuracy.</li>
+                                <li><strong>Security Compliance:</strong> Ensure strict adherence to CSTech data governance and privacy policies.</li>
+                              </ul>
+                           </div>
+                           
+                           <h2 className="text-xl font-semibold text-brand-black border-b border-gray-100 pb-2 pt-4">3. Next Steps</h2>
+                           <p className="leading-relaxed">After reviewing this material, proceed to the corresponding lab in the Department Labs section to complete the practical exercises. For further assistance or clarification on these policies, please contact the IT Enablement team or refer to the internal knowledge base.</p>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
