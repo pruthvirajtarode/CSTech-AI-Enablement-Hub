@@ -19,9 +19,10 @@ import {
 interface SidebarProps {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
+  isCollapsed?: boolean;
 }
 
-export function Sidebar({ isOpen = false, setIsOpen }: SidebarProps) {
+export function Sidebar({ isOpen = false, setIsOpen, isCollapsed = false }: SidebarProps) {
   const [activeModal, setActiveModal] = useState<'settings' | 'help' | null>(null);
 
   const navItems = [
@@ -46,18 +47,24 @@ export function Sidebar({ isOpen = false, setIsOpen }: SidebarProps) {
         />
       )}
       <aside className={cn(
-        "w-64 h-screen bg-brand-black text-brand-white flex flex-col fixed left-0 top-0 border-r border-brand-charcoal overflow-y-auto z-50 transition-transform duration-300",
+        "h-screen bg-brand-black text-brand-white flex flex-col fixed left-0 top-0 border-r border-brand-charcoal overflow-y-auto z-50 transition-all duration-300",
+        isCollapsed ? "w-20" : "w-64",
         isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}>
-        <div className="p-6 flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <img src="/logo.png" alt="CSTech Logo" className="w-8 h-8 object-contain rounded" />
-              <h1 className="text-xl font-bold tracking-tight">CSTech AI</h1>
+        <div className={`p-6 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
+          <div className={isCollapsed ? "flex justify-center" : ""}>
+            <div className={`flex items-center gap-2 ${isCollapsed ? 'mb-0' : 'mb-1'}`}>
+              <img src="/logo.png" alt="CSTech Logo" className={`object-contain rounded transition-all duration-300 ${isCollapsed ? 'w-10 h-10' : 'w-12 h-12'}`} />
+              {!isCollapsed && <h1 className="text-xl font-bold tracking-tight whitespace-nowrap">CSTech AI</h1>}
             </div>
-            <p className="text-xs text-brand-gray">Enablement Hub</p>
+            {!isCollapsed && <p className="text-xs text-brand-gray">Enablement Hub</p>}
           </div>
-          <button className="lg:hidden text-brand-gray hover:text-white" onClick={() => setIsOpen?.(false)}>
+          {!isCollapsed && (
+            <button className="lg:hidden text-brand-gray hover:text-white" onClick={() => setIsOpen?.(false)}>
+              <X className="w-6 h-6" />
+            </button>
+          )}
+        </div>
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -68,25 +75,27 @@ export function Sidebar({ isOpen = false, setIsOpen }: SidebarProps) {
             key={item.path}
             to={item.path}
             className={({ isActive }) => cn(
-              "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors",
+              "flex items-center gap-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 overflow-hidden",
+              isCollapsed ? "px-0 justify-center w-12 mx-auto" : "px-3",
               isActive 
                 ? "bg-brand-charcoal text-brand-yellow" 
                 : "text-brand-gray hover:bg-brand-charcoal hover:text-brand-white"
             )}
+            title={isCollapsed ? item.name : undefined}
           >
-            <item.icon className="w-4 h-4" />
-            {item.name}
+            <item.icon className="w-5 h-5 flex-shrink-0" />
+            {!isCollapsed && <span className="whitespace-nowrap">{item.name}</span>}
           </NavLink>
         ))}
       </nav>
 
       <div className="p-4 mt-auto border-t border-brand-charcoal">
-        <nav className="space-y-1">
-          <button onClick={(e) => { e.preventDefault(); setActiveModal('settings'); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white transition-colors">
-            <Settings className="w-4 h-4" /> Settings
+        <nav className="space-y-2">
+          <button onClick={(e) => { e.preventDefault(); setActiveModal('settings'); }} title={isCollapsed ? "Settings" : undefined} className={cn("w-full flex items-center gap-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white transition-colors rounded-md hover:bg-brand-charcoal", isCollapsed ? "justify-center px-0 w-12 mx-auto" : "px-3")}>
+            <Settings className="w-5 h-5 flex-shrink-0" /> {!isCollapsed && "Settings"}
           </button>
-          <button onClick={(e) => { e.preventDefault(); setActiveModal('help'); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white transition-colors">
-            <HelpCircle className="w-4 h-4" /> Help & Support
+          <button onClick={(e) => { e.preventDefault(); setActiveModal('help'); }} title={isCollapsed ? "Help & Support" : undefined} className={cn("w-full flex items-center gap-3 py-2 text-sm font-medium text-brand-gray hover:text-brand-white transition-colors rounded-md hover:bg-brand-charcoal", isCollapsed ? "justify-center px-0 w-12 mx-auto" : "px-3")}>
+            <HelpCircle className="w-5 h-5 flex-shrink-0" /> {!isCollapsed && "Help & Support"}
           </button>
         </nav>
       </div>

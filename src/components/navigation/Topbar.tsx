@@ -4,15 +4,25 @@ import { Badge } from '../ui/Badge';
 
 interface TopbarProps {
   onMenuClick?: () => void;
+  onToggleCollapse?: () => void;
+  isCollapsed?: boolean;
 }
 
-export function Topbar({ onMenuClick }: TopbarProps) {
+export function Topbar({ onMenuClick, onToggleCollapse, isCollapsed }: TopbarProps) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   return (
     <header className="h-16 bg-white border-b border-brand-gray flex items-center justify-between px-4 lg:px-8 sticky top-0 z-10">
       <div className="flex items-center gap-4">
+        {onToggleCollapse && (
+          <button 
+            className="hidden lg:block p-2 -ml-2 text-brand-darkGray hover:text-brand-black transition-colors"
+            onClick={onToggleCollapse}
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        )}
         {onMenuClick && (
           <button 
             className="lg:hidden p-2 -ml-2 text-brand-darkGray hover:text-brand-black transition-colors"

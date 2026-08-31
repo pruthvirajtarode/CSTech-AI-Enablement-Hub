@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { Play, TrendingUp, CheckCircle, Brain, ArrowRight } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { motion } from 'framer-motion';
 
 const journeyStages = [
   { id: '01', name: 'Understand', status: 'completed' },
@@ -26,10 +27,28 @@ const mockImpactData = [
 export function Dashboard() {
   const navigate = useNavigate();
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+  };
+
   return (
-    <div className="space-y-8 animate-fade-in">
+    <motion.div 
+      className="space-y-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       
-      <div className="flex items-center justify-between">
+      <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Good morning, Sarah</h1>
           <p className="text-brand-darkGray mt-1 text-lg">Let's build your AI capability step by step.</p>
@@ -40,8 +59,8 @@ export function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
+      <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -56,7 +75,7 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -71,7 +90,7 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -86,7 +105,7 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -100,9 +119,10 @@ export function Dashboard() {
             <p className="text-sm text-brand-darkGray mt-4">3 tasks remaining</p>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
-      <Card>
+      <motion.div variants={itemVariants}>
+        <Card>
         <CardHeader>
           <CardTitle>Your AI Journey</CardTitle>
           <CardDescription>Track your progression from foundational knowledge to workflow automation.</CardDescription>
@@ -110,11 +130,17 @@ export function Dashboard() {
         <CardContent>
           <div className="flex flex-wrap items-center justify-between relative mt-4">
             <div className="absolute top-1/2 left-0 w-full h-1 bg-brand-gray -translate-y-1/2 z-0 hidden md:block"></div>
-            {journeyStages.map((stage) => (
-              <div key={stage.id} className="relative z-10 flex flex-col items-center gap-2 mb-4 md:mb-0">
+            {journeyStages.map((stage, index) => (
+              <motion.div 
+                key={stage.id} 
+                className="relative z-10 flex flex-col items-center gap-2 mb-4 md:mb-0"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1 + 0.5, type: 'spring' }}
+              >
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 border-white font-bold transition-all ${
-                  stage.status === 'completed' ? 'bg-brand-black text-brand-white' : 
-                  stage.status === 'current' ? 'bg-brand-yellow text-brand-black ring-4 ring-yellow-100' : 
+                  stage.status === 'completed' ? 'bg-brand-black text-brand-white shadow-md' : 
+                  stage.status === 'current' ? 'bg-brand-yellow text-brand-black ring-4 ring-yellow-100 shadow-lg scale-110' : 
                   'bg-brand-gray text-brand-darkGray'
                 }`}>
                   {stage.id}
@@ -122,15 +148,15 @@ export function Dashboard() {
                 <span className={`text-sm font-medium ${stage.status === 'upcoming' ? 'text-brand-darkGray' : 'text-brand-black'}`}>
                   {stage.name}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </Card>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        <Card className="flex flex-col">
+        <Card className="flex flex-col hover:shadow-md transition-shadow">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Continue Learning</CardTitle>
@@ -144,7 +170,12 @@ export function Dashboard() {
               Learn the ROLE + CONTEXT + TASK + CONSTRAINTS framework to get exactly what you need from AI assistants without endless back-and-forth.
             </p>
             <div className="w-full bg-brand-lightGray h-2 rounded-full overflow-hidden mb-4">
-              <div className="bg-brand-yellow h-full w-[45%]"></div>
+              <motion.div 
+                className="bg-brand-yellow h-full"
+                initial={{ width: 0 }}
+                animate={{ width: "45%" }}
+                transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+              />
             </div>
             <p className="text-xs text-brand-darkGray text-right mb-6">45% Completed</p>
             
@@ -193,10 +224,10 @@ export function Dashboard() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
       
-      <div className="bg-brand-black rounded-xl p-8 text-brand-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-charcoal rounded-full -translate-y-1/2 translate-x-1/4 opacity-50 blur-3xl"></div>
+      <motion.div variants={itemVariants} className="bg-brand-black rounded-xl p-8 text-brand-white relative overflow-hidden group hover:shadow-xl transition-all duration-500">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-charcoal rounded-full -translate-y-1/2 translate-x-1/4 opacity-50 blur-3xl group-hover:bg-brand-yellow/20 transition-colors duration-700"></div>
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <Badge variant="outline" className="border-brand-charcoal bg-brand-charcoal text-brand-yellow mb-4">Today's AI Challenge</Badge>
@@ -211,7 +242,9 @@ export function Dashboard() {
         </div>
       </div>
 
-    </div>
+      </motion.div>
+
+    </motion.div>
   );
 }
 
