@@ -1,10 +1,12 @@
-
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { Eye, EyeOff } from 'lucide-react';
 
 export function Login() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ export function Login() {
       
       <div className="z-10 text-center mb-8">
         <div className="flex justify-center mb-6">
-           <img src="/logo.avif" alt="CSTech Logo" className="w-24 h-24 object-contain rounded-2xl bg-white p-2 shadow-lg" />
+           <img src="/logo.avif" alt="CSTech Logo" className="w-24 h-24 object-contain" />
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">CSTech AI <span className="text-brand-yellow">Enablement Hub</span></h1>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">Learn AI. Apply AI. Improve the way you work.</p>
@@ -48,11 +50,20 @@ export function Login() {
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Password</label>
-              <input 
-                type="password" 
-                defaultValue="password123"
-                className="w-full p-2 border border-brand-gray rounded-md focus:ring-2 focus:ring-brand-yellow focus:outline-none bg-brand-lightGray"
-              />
+              <div className="relative">
+                <input 
+                  type={showPassword ? "text" : "password"}
+                  defaultValue="password123"
+                  className="w-full p-2 pr-10 border border-brand-gray rounded-md focus:ring-2 focus:ring-brand-yellow focus:outline-none bg-brand-lightGray"
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-darkGray hover:text-brand-black transition-colors"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
             
             <div className="pt-2">
