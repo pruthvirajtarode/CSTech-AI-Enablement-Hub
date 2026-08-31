@@ -18,11 +18,13 @@ export function Resources() {
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [viewingResource, setViewingResource] = useState<typeof resources[0] | null>(null);
   const [isResourceLoaded, setIsResourceLoaded] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     if (viewingResource) {
       setIsResourceLoaded(false);
+      setIsVideoPlaying(false);
       const timer = setTimeout(() => setIsResourceLoaded(true), 1500);
       return () => clearTimeout(timer);
     }
@@ -149,21 +151,30 @@ export function Resources() {
                   
                   <div className="w-full max-w-4xl bg-white p-0 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col overflow-hidden">
                     {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? (
-                      <div className="w-full aspect-video bg-black relative flex items-center justify-center group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Video thumbnail" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" />
-                        <div className="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center z-10 shadow-lg transform group-hover:scale-110 transition-transform">
-                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[24px] border-l-black border-b-[12px] border-b-transparent ml-2"></div>
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-                           <div className="flex items-center gap-4 text-white text-sm font-medium">
-                              <span>02:14</span>
-                              <div className="h-1.5 flex-1 bg-white/30 rounded-full overflow-hidden cursor-pointer relative">
-                                 <div className="absolute top-0 left-0 bottom-0 bg-brand-yellow w-1/3"></div>
-                                 <div className="absolute top-1/2 -translate-y-1/2 left-1/3 w-3 h-3 bg-white rounded-full shadow"></div>
-                              </div>
-                              <span>15:30</span>
-                           </div>
-                        </div>
+                      <div className="w-full aspect-video bg-black relative flex items-center justify-center group cursor-pointer" onClick={() => setIsVideoPlaying(true)}>
+                        {!isVideoPlaying ? (
+                          <>
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Video thumbnail" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" />
+                            <div className="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center z-10 shadow-lg transform group-hover:scale-110 transition-transform">
+                              <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[24px] border-l-black border-b-[12px] border-b-transparent ml-2"></div>
+                            </div>
+                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                               <div className="flex items-center gap-4 text-white text-sm font-medium">
+                                  <span>02:14</span>
+                                  <div className="h-1.5 flex-1 bg-white/30 rounded-full overflow-hidden cursor-pointer relative">
+                                     <div className="absolute top-0 left-0 bottom-0 bg-brand-yellow w-1/3"></div>
+                                     <div className="absolute top-1/2 -translate-y-1/2 left-1/3 w-3 h-3 bg-white rounded-full shadow"></div>
+                                  </div>
+                                  <span>15:30</span>
+                               </div>
+                            </div>
+                          </>
+                        ) : (
+                          <video controls autoPlay className="w-full h-full object-cover outline-none bg-black">
+                             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4" />
+                             Your browser does not support the video tag.
+                          </video>
+                        )}
                       </div>
                     ) : (
                       <div className="p-8 md:p-12 bg-white max-h-[65vh] overflow-y-auto">
