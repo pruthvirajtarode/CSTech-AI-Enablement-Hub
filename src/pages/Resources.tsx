@@ -128,27 +128,28 @@ export function Resources() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="flex-1 bg-gray-100 flex flex-col items-center justify-center relative p-8 text-center">
-              <div className="absolute inset-0 bg-grid-brand-gray/5 bg-[size:20px_20px]"></div>
+            <div className="flex-1 bg-gray-100 relative overflow-y-auto">
+              <div className="absolute inset-0 bg-grid-brand-gray/5 bg-[size:20px_20px] pointer-events-none"></div>
               
-              {!isResourceLoaded ? (
-                <>
-                  <Loader2 className="w-8 h-8 animate-spin text-brand-yellow mb-4" />
-                  <p className="text-brand-darkGray font-medium">Loading {viewingResource.type.toLowerCase()} viewer...</p>
-                </>
-              ) : (
-                <div className="flex flex-col items-center animate-fade-in z-10">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm border border-brand-gray">
-                     {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? 
-                       <Video className="w-8 h-8 text-blue-500" /> : 
-                       <Book className="w-8 h-8 text-brand-yellow" />
-                     }
-                  </div>
-                  <h3 className="text-2xl font-bold text-brand-black mb-2">{viewingResource.title}</h3>
-                  <p className="text-brand-darkGray mb-8 max-w-md">{viewingResource.desc}</p>
-                  
-                  <div className="w-full max-w-4xl bg-white p-0 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col overflow-hidden">
-                    {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? (
+              <div className="min-h-full flex flex-col items-center justify-center p-4 md:p-8 text-center">
+                {!isResourceLoaded ? (
+                  <>
+                    <Loader2 className="w-8 h-8 animate-spin text-brand-yellow mb-4" />
+                    <p className="text-brand-darkGray font-medium">Loading {viewingResource.type.toLowerCase()} viewer...</p>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center animate-fade-in z-10 w-full max-w-4xl mx-auto">
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm border border-brand-gray shrink-0">
+                       {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? 
+                         <Video className="w-8 h-8 text-blue-500" /> : 
+                         <Book className="w-8 h-8 text-brand-yellow" />
+                       }
+                    </div>
+                    <h3 className="text-2xl font-bold text-brand-black mb-2">{viewingResource.title}</h3>
+                    <p className="text-brand-darkGray mb-8 max-w-md">{viewingResource.desc}</p>
+                    
+                    <div className="w-full bg-white p-0 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col overflow-hidden">
+                      {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? (
                       <div 
                         className={`w-full aspect-video bg-black relative flex items-center justify-center ${!isVideoPlaying ? 'group cursor-pointer' : ''}`} 
                         onClick={() => !isVideoPlaying && setIsVideoPlaying(true)}
@@ -223,6 +224,7 @@ export function Resources() {
                   </div>
                 </div>
               )}
+              </div>
             </div>
             <div className="p-4 border-t border-brand-gray bg-gray-50 flex justify-between items-center">
               <span className="text-xs text-brand-darkGray">CSTech Confidential</span>
