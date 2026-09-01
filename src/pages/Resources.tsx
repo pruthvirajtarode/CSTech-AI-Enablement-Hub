@@ -149,7 +149,10 @@ export function Resources() {
                   
                   <div className="w-full max-w-4xl bg-white p-0 rounded-lg shadow-sm border border-brand-gray text-left animate-fade-in flex flex-col overflow-hidden">
                     {viewingResource.type === 'Video' || viewingResource.type === 'Webinar' ? (
-                      <div className="w-full aspect-video bg-black relative flex items-center justify-center group cursor-pointer" onClick={() => setIsVideoPlaying(true)}>
+                      <div 
+                        className={`w-full aspect-video bg-black relative flex items-center justify-center ${!isVideoPlaying ? 'group cursor-pointer' : ''}`} 
+                        onClick={() => !isVideoPlaying && setIsVideoPlaying(true)}
+                      >
                         {!isVideoPlaying ? (
                           <>
                             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Video thumbnail" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" />
@@ -171,7 +174,7 @@ export function Resources() {
                           <div className="w-full h-full bg-black flex items-center justify-center">
                             <video 
                               className="w-full max-h-full outline-none"
-                              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+                              src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
                               controls
                               autoPlay
                               muted
